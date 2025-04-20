@@ -14,7 +14,6 @@ This project tackles the problem of recognising environments from raw audio alon
 | **GUI** | Tkinter · UMAP | Upload ≤ 500 `.npy` files, pick a model, interactive 2‑D scatter with tooltips |
 | **Notebooks** | Colab‑ready IPYNB | Reproduce training for each approach |
 
-
 ---
 ## Research Questions & Scope
 This work set out to answer three academic questions distilled from the dissertation:
@@ -31,11 +30,11 @@ This work set out to answer three academic questions distilled from the disserta
 * Each TFExample is parsed into **[T×128]** float32 matrices (≈ 96 frames per 10 s).
 
 ## Methodology at a Glance
-| Approach | Input | Net type | Train size | Val Acc | Notes |
-|----------|-------|----------|-----------:|-------:|-------|
-| **1** | 128×T images | 2‑D CNN | 500 | 0.35 | heavy data‑aug, GPU‑light |
-| **2** | raw embeddings | 1‑D CNN + BN | 22 k | 0.41 | best trade‑off size/accuracy |
-| **3** | raw embeddings | 1‑D CNN (deeper) | 150 k | **0.43** | >2× clusters resolved on UMAP |
+| Approach | Input | Net type | Train size | Notes |
+|----------|-------|----------|-----------:|-------|
+| **1** | 128×T images | 2‑D CNN | 500 | heavy data‑aug, GPU‑light |
+| **2** | raw embeddings | 1‑D CNN + BN | 22 k | best trade‑off size/accuracy |
+| **3** | raw embeddings | 1‑D CNN (deeper) | 150 k | >2× clusters resolved on UMAP |
 
 ---
 ## Getting Started
