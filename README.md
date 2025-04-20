@@ -14,6 +14,29 @@ This project tackles the problem of recognising environments from raw audio alon
 | **GUI** | Tkinter · UMAP | Upload ≤ 500 `.npy` files, pick a model, interactive 2‑D scatter with tooltips |
 | **Notebooks** | Colab‑ready IPYNB | Reproduce training for each approach |
 
+
+---
+## Research Questions & Scope
+This work set out to answer three academic questions distilled from the dissertation:
+1. **Can a deep‑learning model accurately label diverse soundscapes?** We trained CNNs that predict up to **527** AudioSet labels grouped into 20 custom classes.
+2. **Is it better to treat audio embeddings as images or as raw vectors?** Approach 1 converts each 128‑D embedding sequence into a greyscale bitmap; Approaches 2‑3 feed the 128‑D vectors directly into 1‑D (and experimental 2‑D) convolutions.
+3. **How much data is _enough_?** We compared balanced subsets of **500**, **22 176** and **150 000** clips, tracking validation accuracy and cluster separation.
+
+## Dataset
+* **Source** – Google **AudioSet** TFRecords: >2 M 10‑second clips pre‑embedded with *VGGish*  
+* **Splits used**  
+  * *Balanced train* 22 176 clips (all classes equally represented)  
+  * *Unbalanced train* 127  824‑clip sample (Approach 3)  
+  * *Eval* 20 383 clips (held‑out during training)  
+* Each TFExample is parsed into **[T×128]** float32 matrices (≈ 96 frames per 10 s).
+
+## Methodology at a Glance
+| Approach | Input | Net type | Train size | Val Acc | Notes |
+|----------|-------|----------|-----------:|-------:|-------|
+| **1** | 128×T images | 2‑D CNN | 500 | 0.35 | heavy data‑aug, GPU‑light |
+| **2** | raw embeddings | 1‑D CNN + BN | 22 k | 0.41 | best trade‑off size/accuracy |
+| **3** | raw embeddings | 1‑D CNN (deeper) | 150 k | **0.43** | >2× clusters resolved on UMAP |
+
 ---
 ## Getting Started
 ### Install dependencies
